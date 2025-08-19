@@ -11,7 +11,7 @@ from .exceptions import InvalidConfigError, TunDeviceError
 
 class PyXrayCore:
     def __init__(self):
-        self.config = None
+        self._config = None
         self.xray = None
         self.tun_manager = None
         self.dns_resolver = None
@@ -21,7 +21,7 @@ class PyXrayCore:
     def config(self, link: str, tun: bool = True, dns_mode: str = "doh"):
         """Configure proxy settings"""
         # Validate and parse link
-        self.config = validate_link(link)
+        self._config = validate_link(link)
         
         # DNS configuration
         if dns_mode == "doh":
@@ -62,13 +62,13 @@ class PyXrayCore:
     def _build_outbound(self) -> dict:
         """Build outbound configuration based on protocol"""
         # Simplified example for VMess
-        if "v" in self.config:  # VMess identifier
+        if "v" in self._config:  # VMess identifier
             return {
                 "protocol": "vmess",
                 "settings": {"vnext": [{
-                    "address": self.config["add"],
-                    "port": self.config["port"],
-                    "users": [{"id": self.config["id"]}]
+                    "address": self._config["add"],
+                    "port": self._config["port"],
+                    "users": [{"id": self._config["id"]}]
                 }]}
             }
         # TODO: Add other protocols
