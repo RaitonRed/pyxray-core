@@ -1,7 +1,7 @@
-import asyncio
 import logging
 import json
 import tempfile
+import time
 import os
 from .validator import validate_link
 from .xray_manager import XrayController
@@ -85,7 +85,7 @@ class PyXrayCore:
             self.logger.info("Xray proxy started")
             # Keep main thread alive
             while self.xray.running:
-                asyncio.sleep(1)
+                time.sleep(1)
         except KeyboardInterrupt:
             self.stop()
         except Exception as e:
