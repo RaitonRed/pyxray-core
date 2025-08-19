@@ -67,7 +67,7 @@ class PyXrayCore:
                 "protocol": "vmess",
                 "settings": {"vnext": [{
                     "address": self._config["add"],
-                    "port": self._config["port"],
+                    "port": int(self._config["port"]),
                     "users": [{"id": self._config["id"]}]
                 }]}
             }
